@@ -1,0 +1,47 @@
+<h1>API Estados</h1>
+
+<a href="http://localhost:3000/estados.json">Estados</a><br>
+<a href="http://localhost:3000/cidades.json">Cidades</a><br>
+<a href="http://localhost:3000/cidades.json?uf=sp">Cidades SP</a><br>
+
+<div style="margin-top: 50px;">
+  <select id="estados" onchange="loadCapitais(this.value)">
+    <h5>Estados</h5>
+    <option>Selecione</option>
+  </select>
+</div>
+
+<div style="margin-top: 50px;">
+  <select id="cidades"> 
+    <h5>Cidades</h5>
+    <option>Selecione</option>
+  </select>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript">
+  var loadEstados = function(){
+      $.ajax({
+        url: "http://localhost:3000/estados.json" 
+        /* Fazendo requisição ajaxa a API de estados-via proxy.
+        via local host ""http://localhost:3000/estados-proxy.json"" */   
+      }).done(function(dados) { /*função dados mapeia os dados da api estados em json */
+        $("#estados").html("<option>Selecione</option>")
+        $(dados).each(function(){ /* fazendo um each dos dados de estados em jquery */
+          $("#estados").append("<option value='"+ this.uf +"'>"+ this.nome +"</option>")
+        });
+      });
+  }
+    var loadCapitais = function(uf){
+        $.ajax({
+          url: "http://localhost:3000/cidades.json?uf="+ uf /* Fazendo requisição ajaxa a API de cidades por UF */
+        }).done(function(dados) { /*função dados mapeia os dados da api estados em json */
+          $("#cidades").html("<option>Selecione</option>")
+          $(dados).each(function(){ /* fazendo um each dos dados de estados em jquery */
+            $("#cidades").append("<option value='"+ this.uf +"'>"+ this.nome +"</option>")
+          });
+        });
+    }
+    loadEstados();
+  </script>
