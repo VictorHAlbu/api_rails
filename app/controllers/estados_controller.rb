@@ -18,7 +18,7 @@ class EstadosController < ApplicationController
 
    def proxy #função para fazer requisição de API de outro dominio para seu localhost
         require 'rest-client'
-        estados = RestClient.get("http://localhost:3000/estados.json") #Reqquisição foi feita da pŕopia api criada no host
+        estados = RestClient.get("http://localhost:3000/estados.json") #Requisição foi feita da pŕopia api criada no host
         render json: estados.body, status: 200 
         #ATENÇÃO ESSE CONSUMO DE API FOI DA CRIADA NO PRÓPIO PROJETO, MAS ESSA FUNÇÃO É PARA BUSCAR POR SITE DE QUALQUER DOMINIO QUE DISPONIBILIZE API
         #para API que não estão liberado o CROS
@@ -45,7 +45,7 @@ class EstadosController < ApplicationController
     private
     
     def realeaseCrosDomain
-        #PERMITINDO APLICAÇÃO PARA UALQUER HOST CONSEGUI ACESSAR API CROSS DO MAIN
+        #PERMITINDO APLICAÇÃO PARA QUALQUER HOST CONSEGUI ACESSAR API CROSS DO MAIN
         headers['Access-Control-Allow-Origin'] = '*'
         headers['Access-Control-Allow-Methods'] = 'GET'
         headers['Access-Control-Request-Method'] = '*'

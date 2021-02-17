@@ -18,14 +18,36 @@
   </select>
 </div>
 
+<h1>Lista de Carros</h1>
+  <fieldset id="formCarro">
+    <legend>Carro:</legend>
+    Nome: <input type="text"><br>
+    Ano: <input type="number"><br>
+    Modelo: <input type="text"><br>
+    <button>Salvar</button>
+</fieldset>
+
+
+<table class="table" id="tableCarros">
+  <thead>
+    <tr>
+      <td>nome</td>
+      <td>ano</td>
+      <td>modelo</td>
+    </tr>
+  </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script type="text/javascript">
   var loadEstados = function(){
       $.ajax({
         url: "http://localhost:3000/estados.json" 
-        /* Fazendo requisição ajaxa a API de estados-via proxy.
-        via local host ""http://localhost:3000/estados-proxy.json"" */   
+        /* Fazendo requisição ajaxa a API de estados-via proxy: "http://localhost:3000/estados-proxy.json"" */   
       }).done(function(dados) { /*função dados mapeia os dados da api estados em json */
         $("#estados").html("<option>Selecione</option>")
         $(dados).each(function(){ /* fazendo um each dos dados de estados em jquery */
@@ -44,4 +66,15 @@
         });
     }
     loadEstados();
+
+    var loadCarros = function(){
+        $.ajax({
+          url: "http://localhost:3000/carros.json" /* Fazendo requisição ajaxa a API de CARROS */
+        }).done(function(carros) { /*função dados mapeia os dados da api carros em json */
+          $(carros).each(function(){ /* fazendo um each dos dados de carros em jquery */
+            $("#tableCarros tbody").append("<tr><td>"+ this.nome +"</td><td>"+ this.ano +"</td><td>"+ this.modelo +"</td> </tr>")
+          });
+        });
+    }
+    loadCarros();
   </script>
