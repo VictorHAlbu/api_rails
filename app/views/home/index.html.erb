@@ -21,10 +21,10 @@
 <h1>Lista de Carros</h1>
   <fieldset id="formCarro">
     <legend>Carro:</legend>
-    Nome: <input type="text"><br>
-    Ano: <input type="number"><br>
-    Modelo: <input type="text"><br>
-    <button>Salvar</button>
+    Nome: <input type="text" id="nome"><br>
+    Ano: <input type="number" id="ano"><br>
+    Modelo: <input type="text" id="modelo"><br>
+    <button onclick="SarvarFormCarros()">Salvar</button>
 </fieldset>
 
 
@@ -37,7 +37,6 @@
     </tr>
   </thead>
     <tbody>
-
     </tbody>
 </table>
 
@@ -65,16 +64,40 @@
           });
         });
     }
+
     loadEstados();
 
     var loadCarros = function(){
+      $("input").val("");
         $.ajax({
           url: "http://localhost:3000/carros.json" /* Fazendo requisição ajaxa a API de CARROS */
         }).done(function(carros) { /*função dados mapeia os dados da api carros em json */
           $(carros).each(function(){ /* fazendo um each dos dados de carros em jquery */
-            $("#tableCarros tbody").append("<tr><td>"+ this.nome +"</td><td>"+ this.ano +"</td><td>"+ this.modelo +"</td> </tr>")
+            $("#tableCarros tbody").append("<tr><td>"+ this.nome +"</td><td>"+ this.ano +"</td><td>"+ this.modelo +"</td></tr>")
           });
         });
     }
     loadCarros();
+
+    var SarvarFormCarros = function (){
+      dados = {
+        carro:{
+        nome: $("#nome").val(),
+        ano: $("#ano").val(),
+        modelo: $("#modelo").val()
+        }
+      }
+      $.post({ 
+          url: "http://localhost:3000/carros.json",
+          data: dados
+        }).done(function(carros) { 
+          loadCarros();
+        }).fail(function() { 
+          alert("Erro ao cadastrar carros");
+        });
+
+    }
+
+    
+    
   </script>

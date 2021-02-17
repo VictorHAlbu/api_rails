@@ -1,5 +1,6 @@
 class CarrosController < ApplicationController
   before_action :set_carro, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
 
   # GET /carros or /carros.json
   def index
