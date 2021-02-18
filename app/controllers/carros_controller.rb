@@ -23,6 +23,10 @@ class CarrosController < ApplicationController
   # POST /carros or /carros.json
   def create
     @carro = Carro.new(carro_params)
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET'
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
 
     respond_to do |format|
       if @carro.save

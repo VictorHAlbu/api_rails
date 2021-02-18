@@ -34,6 +34,7 @@
       <td>nome</td>
       <td>ano</td>
       <td>modelo</td>
+      <td></td>
     </tr>
   </thead>
     <tbody>
@@ -73,11 +74,57 @@
           url: "http://localhost:3000/carros.json" /* Fazendo requisição ajaxa a API de CARROS */
         }).done(function(carros) { /*função dados mapeia os dados da api carros em json */
           $(carros).each(function(){ /* fazendo um each dos dados de carros em jquery */
-            $("#tableCarros tbody").append("<tr><td>"+ this.nome +"</td><td>"+ this.ano +"</td><td>"+ this.modelo +"</td></tr>")
+            $("#tableCarros tbody").append("<tr data-id='"+ this.id +"'ondblclick='alterarLinha(this)' ><td data-nome='nome'>"+ 
+              this.nome +"</td><td data-nome='ano'>"+ this.ano +"</td><td data-nome='modelo'>"+ this.modelo +"</td><td data-nome='apagar'><a href=\"javascript:apagar(\'"+ 
+                this.id +"\')\">Apagar</a></td></tr>")
           });
         });
     }
     loadCarros();
+
+    var alterarLinha = function(self) {
+      $(self).find("td").each(function(){
+        var conteudo = $(this).text();
+        if($(this).data("nome") != "apagar"){
+        $(this).html("<input type='text' onblur='salvar(this)' name='"+ $(this).data("nome") +"' value='" + conteudo + "'>");
+        }
+      });
+    }
+    
+    //FAZENDO UM PUT DOS DADOS DA API
+    var salvar = function(self) {
+  
+      var carroId = $(self).parents("tr").data("id") // sobe na linha tr e pega o id que vai ser alterado
+      var campo = $(self).attr("name") //Variavel campo, pega o campo que vai ser alterado. Após pegar id acima
+      
+      var carro = {};
+      carro[campo] = $(self).val();
+
+      $.ajax({
+          type: 'PUT', 
+          url: "http://localhost:3000/carros/"+ carroId +".json",
+          data: {
+            carro: carro
+          }
+        }).done(function(carros) {
+          $(self).parents("td").html($(self).val());
+        }).fail(function() { 
+          alert("Erro ao Atualizar Carros");
+        });
+    }
+
+    // FUNÇÃO APAGAR O DELETE DA API  
+    var apagar = function(carroId) {
+      $.ajax({
+          type: 'DELETE', 
+          url: "http://localhost:3000/carros/"+ carroId +".json",
+        }).done(function(carros) {
+          loadCarros();
+        }).fail(function() { 
+          alert("Erro ao Apagar Carro");
+        });
+  }
+
     var SarvarFormCarros = function (){
       dados = {
         carro:{
@@ -89,7 +136,10 @@
       $.post({ 
           url: "http://localhost:3000/carros.json",
           data: dados
-        }).done(function(carros) { 
+        }).done(function(carros) {
+          $("#nome").val("");
+          $("#ano").val("");
+          $("#modelo").val("");
           loadCarros();
         }).fail(function() { 
           alert("Erro ao cadastrar carros");
