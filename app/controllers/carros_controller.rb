@@ -23,10 +23,6 @@ class CarrosController < ApplicationController
   # POST /carros or /carros.json
   def create
     @carro = Carro.new(carro_params)
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'GET'
-    headers['Access-Control-Request-Method'] = '*'
-    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
 
     respond_to do |format|
       if @carro.save
@@ -44,7 +40,7 @@ class CarrosController < ApplicationController
     respond_to do |format|
       if @carro.update(carro_params)
         format.html { redirect_to @carro, notice: "Carro was successfully updated." }
-        format.json { render :show, status: :ok, location: @carro }
+        format.json { render json: {}, status: 200 }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @carro.errors, status: :unprocessable_entity }
