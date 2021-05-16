@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_152618) do
+ActiveRecord::Schema.define(version: 2021_05_16_155445) do
 
   create_table "acessos_apis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "token"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_05_16_152618) do
 
   create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "valor"
+    t.datetime "data_inicial"
+    t.datetime "data_final"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

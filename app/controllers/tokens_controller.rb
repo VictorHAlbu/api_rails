@@ -64,6 +64,6 @@ class TokensController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def token_params
-      params.require(:token).permit(:valor)
+      params.require(:token).permit(:valor, :data_inicial, :data_final)
     end
 end

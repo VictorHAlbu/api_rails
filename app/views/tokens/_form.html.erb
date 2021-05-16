@@ -16,6 +16,16 @@
     <%= form.text_field :valor %>
   </div>
 
+  <div class="field">
+    <%= form.label :data_inicial %>
+    <%= form.datetime_select :data_inicial %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_final %>
+    <%= form.datetime_select :data_final %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

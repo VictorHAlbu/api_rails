@@ -2,6 +2,10 @@
 
 one:
   valor: MyString
+  data_inicial: 2021-05-16 12:54:45
+  data_final: 2021-05-16 12:54:45
 
 two:
   valor: MyString
+  data_inicial: 2021-05-16 12:54:45
+  data_final: 2021-05-16 12:54:45

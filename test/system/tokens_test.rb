@@ -14,6 +14,8 @@ class TokensTest < ApplicationSystemTestCase
     visit tokens_url
     click_on "New Token"
 
+    fill_in "Data final", with: @token.data_final
+    fill_in "Data inicial", with: @token.data_inicial
     fill_in "Valor", with: @token.valor
     click_on "Create Token"
 
@@ -25,6 +27,8 @@ class TokensTest < ApplicationSystemTestCase
     visit tokens_url
     click_on "Edit", match: :first
 
+    fill_in "Data final", with: @token.data_final
+    fill_in "Data inicial", with: @token.data_inicial
     fill_in "Valor", with: @token.valor
     click_on "Update Token"
 
